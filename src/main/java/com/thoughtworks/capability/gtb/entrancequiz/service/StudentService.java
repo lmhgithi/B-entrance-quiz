@@ -12,7 +12,7 @@ import java.util.*;
 public class StudentService {
     static int cur = 35;
 
-    static public List<Student> students = new ArrayList<Student>(){
+    static public List<Student> students = new ArrayList<Student>() {
         {
             add(new Student(1, "沈乐棋"));
             add(new Student(2, "徐慧慧"));
@@ -51,7 +51,7 @@ public class StudentService {
             add(new Student(35, "凌凤仪"));
         }
     };
-    static public List<Student> studentsOrigin = new ArrayList<Student>(){
+    static public List<Student> studentsOrigin = new ArrayList<Student>() {
         {
             add(new Student(1, "沈乐棋"));
             add(new Student(2, "徐慧慧"));
@@ -88,6 +88,17 @@ public class StudentService {
             add(new Student(33, "刘轲"));
             add(new Student(34, "廖浚斌"));
             add(new Student(35, "凌凤仪"));
+        }
+    };
+
+    static List<String> teamName = new ArrayList<String>() {
+        {
+            add("Team 1");
+            add("Team 2");
+            add("Team 3");
+            add("Team 4");
+            add("Team 5");
+            add("Team 6");
         }
     };
 
@@ -100,24 +111,24 @@ public class StudentService {
     public List<Group> getStudentsGroup() {
         initGroup();
         Collections.shuffle(students);
-        int perGroup = students.size()/6;
+        int perGroup = students.size() / 6;
         int restToAdd = 0;
-        if(perGroup*6 < cur) {
-            restToAdd = cur - perGroup*6;
+        if (perGroup * 6 < cur) {
+            restToAdd = cur - perGroup * 6;
         }
 
         int total = 0;
-        for(int i = 0; i < 6; i+=1){
+        for (int i = 0; i < 6; i += 1) {
             List<Student> tmp = new ArrayList<>();
-            int tmpAdd = restToAdd>0 ? perGroup+1 : perGroup;
-            for(int j = 0; j < tmpAdd; j+=1){
-                if(total <= cur) {
+            int tmpAdd = restToAdd > 0 ? perGroup + 1 : perGroup;
+            for (int j = 0; j < tmpAdd; j += 1) {
+                if (total <= cur) {
                     tmp.add(students.get(i * perGroup + j));
                     total += 1;
                 }
             }
             restToAdd -= 1;
-            Group eachGroup = new Group("Team " + (i+1), tmp);
+            Group eachGroup = new Group(teamName.get(i), tmp);
             studentsGroup.add(eachGroup);
         }
 
@@ -130,9 +141,17 @@ public class StudentService {
 
 
     public void addStudent(String name) {
-        cur+=1;
+        cur += 1;
         Student studentToAdd = new Student(cur, name);
         studentsOrigin.add(studentToAdd);
         students.add(studentToAdd);
+    }
+
+    public void changeTeamName(int index, String name) throws Exception {
+        if (teamName.contains(name)) {
+            throw new Exception("CONFLICT");
+        } else {
+            teamName.set(index, name);
+        }
     }
 }
