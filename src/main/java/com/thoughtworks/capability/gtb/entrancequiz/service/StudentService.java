@@ -129,4 +129,10 @@ public class StudentService {
     }
 
 
+    public void addStudent(String name) {
+        cur+=1;
+        Student studentToAdd = new Student(cur, name);
+        studentsOrigin.add(studentToAdd);
+        students.add(studentToAdd);
+    }
 }
