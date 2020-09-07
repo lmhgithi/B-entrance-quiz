@@ -147,11 +147,11 @@ public class StudentService {
         students.add(studentToAdd);
     }
 
-    public void changeTeamName(int index, String name) throws Exception {
-        if (teamName.contains(name)) {
-            throw new Exception("CONFLICT");
+    public void changeTeamName(String originName, String name) throws Exception {
+        if (Collections.frequency(teamName, name) > 0) {
+            throw new Exception("CONFLICT Team Name");
         } else {
-            teamName.set(index, name);
+            teamName.set(teamName.indexOf(originName), name);
         }
     }
 }

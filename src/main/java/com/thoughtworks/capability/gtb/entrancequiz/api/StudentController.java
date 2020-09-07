@@ -38,12 +38,12 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/team/{index}&{name}")
+    @PutMapping("/team/{originName}/{name}")
     @CrossOrigin
-    public ResponseEntity changeTeamName(@PathVariable("index") int index,
-                                         @PathVariable("name") String name) {
+    public ResponseEntity changeTeamName(@PathVariable("originName") String originName,
+            @PathVariable("name") String name) {
         try{
-            studentService.changeTeamName(index, name);
+            studentService.changeTeamName(originName, name);
             return ResponseEntity.ok().build();
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
