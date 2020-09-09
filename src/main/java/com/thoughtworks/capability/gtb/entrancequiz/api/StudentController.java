@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 public class StudentController {
     private final StudentService studentService;
 
@@ -20,26 +21,22 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    @CrossOrigin
     public ResponseEntity<List<Student>> getStudents() {
         return ResponseEntity.ok(studentService.getStudents());
     }
 
-    @GetMapping("/studentsGroup")
-    @CrossOrigin
+    @GetMapping("/groups")
     public ResponseEntity<List<Group>> getStudentsGroup() {
         return ResponseEntity.ok(studentService.getStudentsGroup());
     }
 
-    @PostMapping("/student/{name}")
-    @CrossOrigin
+    @PostMapping("/students/{name}")
     public ResponseEntity addStudent(@PathVariable("name") String name) {
         studentService.addStudent(name);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/team/{originName}/{name}")
-    @CrossOrigin
+    @PutMapping("/groups/{originName}/{name}")
     public ResponseEntity changeTeamName(@PathVariable("originName") String originName,
             @PathVariable("name") String name) {
         try{
