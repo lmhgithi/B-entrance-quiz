@@ -1,6 +1,6 @@
 package com.thoughtworks.capability.gtb.entrancequiz.domain;
 
-//@Data
+
 public class Student {
     private Integer num;
     private String name;
